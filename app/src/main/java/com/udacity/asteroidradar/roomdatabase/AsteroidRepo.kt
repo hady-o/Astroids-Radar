@@ -15,8 +15,7 @@ class AsteroidRepo(val dataBase: AstroidDao.AsteroidRoomDataBase) {
     @RequiresApi(Build.VERSION_CODES.N)
     suspend fun refreshData(){
         withContext(Dispatchers.IO){
-            val allAsteroids = AsteroidsApiService.Net.getAsteroidsList("","")
-
+            val allAsteroids = AsteroidsApiService.Net.getAsteroidsList()
             dataBase.dao.insertAllAsteroids((allAsteroids))
         }
     }

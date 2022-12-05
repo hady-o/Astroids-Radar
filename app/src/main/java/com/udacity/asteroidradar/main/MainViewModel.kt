@@ -7,11 +7,17 @@ import androidx.annotation.RequiresApi
 import androidx.lifecycle.*
 import com.squareup.moshi.Moshi
 import com.udacity.asteroidradar.Asteroid
+import com.udacity.asteroidradar.Constants
+import com.udacity.asteroidradar.Constants.API_QUERY_DATE_FORMAT
+import com.udacity.asteroidradar.Constants.getThisDay
+import com.udacity.asteroidradar.Constants.getWeekDate
 import com.udacity.asteroidradar.PictureOfDay
 import com.udacity.asteroidradar.api.AsteroidsApiService
 import com.udacity.asteroidradar.roomdatabase.AsteroidRepo
 import com.udacity.asteroidradar.roomdatabase.AstroidDao
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 @RequiresApi(Build.VERSION_CODES.N)
@@ -32,7 +38,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     init {
         getImagee()
         refresh()
-        week()
+        getAll()
 
     }
 
@@ -48,12 +54,31 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
 
-       fun week() {
+       fun getAll() {
         viewModelScope.launch {
             database.dao.getAllAsteroids().collect(){
                 _allAsteroids.value = it
         }
     }
+
+    }
+
+    fun getWeek() {
+        viewModelScope.launch {
+            database.dao.getSomeAsteroids(getThisDay(), getWeekDate()).collect(){
+                _allAsteroids.value = it
+            }
+        }
+
+    }
+
+
+    fun getday() {
+        viewModelScope.launch {
+            database.dao.getSomeAsteroids(getThisDay(), getThisDay()).collect(){
+                _allAsteroids.value = it
+            }
+        }
 
     }
 

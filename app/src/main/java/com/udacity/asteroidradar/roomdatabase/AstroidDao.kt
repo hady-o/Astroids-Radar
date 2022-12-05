@@ -12,11 +12,14 @@ interface AstroidDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllAsteroids(asteroids : List<Asteroid>)
 
-    @Delete
-    fun deleteAsteroid(asteroid: Asteroid)
 
-    @Query("select * from Asteroid" )
+    @Query("select * from Asteroid order by closeApproachDate")
     fun getAllAsteroids():Flow<List<Asteroid>>
+
+    @Query("SELECT * from Asteroid where closeApproachDate>= :startDate and closeApproachDate<=:endDate ORDER by closeApproachDate")
+    fun getSomeAsteroids(startDate :String,endDate:String): Flow<List<Asteroid>>
+
+
 
 
     @Database(entities = [Asteroid::class], version = 1, exportSchema = false)

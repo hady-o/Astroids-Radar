@@ -7,11 +7,16 @@
         <variable
             name="asteroid"
             type="com.udacity.asteroidradar.Asteroid" />
+
+        <variable
+            name="click"
+            type="com.udacity.asteroidradar.adapters.AsAdapter.AsteroidListenerClass" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:background="@color/app_background"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:onClick="@{()->click.onClick(asteroid)}">
 
 
 
@@ -20,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        app:asteroidStatusImage="@{asteroid.potentiallyHazardous}"
+        app:statusIcon="@{asteroid.potentiallyHazardous}"
         android:layout_margin="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"

@@ -37,21 +37,18 @@ private val asteroidService: AsteroidsApiService by lazy {
 interface AsteroidsApiService {
 
     @GET(val2)
-    fun getImageOfThisDay(@Query("api_key")apiKey:String):PictureOfDay
+    suspend fun getImageOfThisDay(@Query("api_key")apiKey:String):PictureOfDay
 
 
 
     @GET(val1)
-    fun getAllAsteroids(
-        @Query("start_date")startDate:String,
-        @Query("end_date")endDate:String,
+    suspend fun getAllAsteroids(
         @Query("api_key")apiKey:String): String
 
 
-
     object Net{
-       fun getAsteroidsList(s:String,e:String):List<Asteroid> {
-                val asteroidRes=asteroidService.getAllAsteroids(s,e,Constants.api_key)
+       suspend fun getAsteroidsList():List<Asteroid> {
+                val asteroidRes=asteroidService.getAllAsteroids(Constants.api_key)
                 val asteroidsList= parseAsteroidsJsonResult(JSONObject(asteroidRes))
                 return asteroidsList
         }

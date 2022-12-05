@@ -12,8 +12,10 @@ import com.udacity.asteroidradar.adapters.AsAdapter
 fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
     if (isHazardous) {
         imageView.setImageResource(R.drawable.ic_status_potentially_hazardous)
+        imageView.contentDescription = imageView.context.getString(R.string.potentially_hazardous_asteroid_image)
     } else {
         imageView.setImageResource(R.drawable.ic_status_normal)
+        imageView.contentDescription = imageView.context.getString(R.string.not_hazardous_asteroid_image)
     }
 }
 
@@ -21,8 +23,10 @@ fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
 fun bindDetailsStatusImage(imageView: ImageView, isHazardous: Boolean) {
     if (isHazardous) {
         imageView.setImageResource(R.drawable.asteroid_hazardous)
+        imageView.contentDescription = imageView.context.getString(R.string.potentially_hazardous_asteroid_image)
     } else {
         imageView.setImageResource(R.drawable.asteroid_safe)
+        imageView.contentDescription = imageView.context.getString(R.string.not_hazardous_asteroid_image)
     }
 }
 
@@ -44,15 +48,18 @@ fun bindTextViewToDisplayVelocity(textView: TextView, number: Double) {
     textView.text = String.format(context.getString(R.string.km_s_unit_format), number)
 }
 
-@BindingAdapter("listData")
-fun recView(recView: RecyclerView, asteroids: List<Asteroid>?) {
-    val adapter = recView.adapter as AsAdapter
+@BindingAdapter("asteroidsData")
+fun bindRecyclerData(recyclerView: RecyclerView, asteroids: List<Asteroid>?) {
+    val adapter = recyclerView.adapter as AsAdapter
     adapter.submitList(asteroids)
 }
 
 @BindingAdapter("imageOfDay")
-fun getImmage(view:ImageView,pictureOfDay: PictureOfDay?) {
+fun bindImageOfDay(image:ImageView,pictureOfDay: PictureOfDay?) {
     pictureOfDay?.let {
-        Picasso.with(view.context).load(pictureOfDay.url).into(view)
+        Picasso.with(image.context).load(pictureOfDay.url).into(image)
+        image.contentDescription = pictureOfDay.title
     }
+
+
 }

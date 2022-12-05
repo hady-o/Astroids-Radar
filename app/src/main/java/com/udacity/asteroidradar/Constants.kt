@@ -12,6 +12,27 @@ object Constants {
     const val api_key = "NfjGXQhSYMEEMEEI16PHqMcScqrcRXHqjboRPM9d"
 
 
+    fun getThisDay(): String {
+        val calendar = Calendar.getInstance()
+        val currentTime = calendar.time
+        val dateFormat = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            SimpleDateFormat(API_QUERY_DATE_FORMAT, Locale.getDefault())
+        } else {
+            TODO("VERSION.SDK_INT < N")
+        }
+        return dateFormat.format(currentTime)
+    }
 
+    fun getWeekDate(): String {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR,6)
+        val currentTime = calendar.time
+        val dateFormat = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            SimpleDateFormat(API_QUERY_DATE_FORMAT, Locale.getDefault())
+        } else {
+            TODO("VERSION.SDK_INT < N")
+        }
+        return dateFormat.format(currentTime)
+    }
 
 }

@@ -18,13 +18,13 @@ class AsAdapter(val clickListener: AsteroidListenerClass): ListAdapter<Asteroid,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             var asteroid = getItem(position)!!
-            holder.astroidBind(asteroid)
+            holder.astroidBind(asteroid,clickListener)
     }
 
 
 
 
-    public class  ViewHolder private constructor(val binding: AsteroidItemLayoutBinding):RecyclerView.ViewHolder(binding.root)
+     class  ViewHolder private constructor(val binding: AsteroidItemLayoutBinding):RecyclerView.ViewHolder(binding.root)
     {
         companion object {
              fun fromViewHolder(parent: ViewGroup): ViewHolder {
@@ -35,9 +35,10 @@ class AsAdapter(val clickListener: AsteroidListenerClass): ListAdapter<Asteroid,
         }
 
        fun astroidBind(
-            asteroid: Asteroid?
+            asteroid: Asteroid?, clickListener: AsteroidListenerClass
         ) {
            binding.asteroid = asteroid
+           binding.click = clickListener
            binding.executePendingBindings()
         }
     }
